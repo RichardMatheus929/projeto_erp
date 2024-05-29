@@ -5,7 +5,7 @@ from django.contrib.auth.models import Permission
 def check_permission(user,method,permission_to):
     if not user.is_authenticated:
         return False
-    if user.is_owner:
+    if user.isowner:
         return True
 
     required_permission = 'view_'+permission_to

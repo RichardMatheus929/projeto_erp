@@ -11,13 +11,13 @@ class Authentication:
 
         if not user_exist:
             raise AuthenticationFailed(
-                f'Email incorretos/ou não existente {email}')
+                f'Email ({email}) incorreto ou não existente')
 
         user = User.objects.filter(email=email).first()
 
         if not check_password(password, user.password):
             raise AuthenticationFailed(
-                f'Email incorretos/ou não existente {email}')
+                f'Senha errada para o email {email}')
 
         return user
 
