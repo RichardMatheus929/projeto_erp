@@ -13,5 +13,6 @@ class Signup(Base):
         serializer = UserSerializers(user)
 
         return Response({
-            'user':serializer.data
+            'user':serializer.data,
+            'criado em': user.create_account
         })

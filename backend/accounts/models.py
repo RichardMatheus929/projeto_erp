@@ -7,6 +7,7 @@ class User(AbstractBaseUser):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     isowner = models.BooleanField(default=False)
+    create_account = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
 
