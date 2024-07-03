@@ -16,7 +16,7 @@ class User(AbstractBaseUser):
     
 class Group(models.Model):
     name = models.CharField(max_length=100)
-    empresa = models.ForeignKey(Enterprise,on_delete=models.CASCADE)
+    enterprise = models.ForeignKey(Enterprise,on_delete=models.CASCADE)
 
 class Group_Permissions(models.Model):
     group = models.ForeignKey(Group,on_delete=models.CASCADE)

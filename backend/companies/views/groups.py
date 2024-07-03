@@ -1,6 +1,6 @@
 from companies.views.base import Base
 from companies.utils.exceptions import RequiredFields
-from companies.utils.permission import Group_Permissions
+from companies.utils.permission import GroupsPermissionPermission
 from companies.serializers import GroupSerializer
 
 from accounts.models import Group,Group_Permissions
@@ -13,10 +13,9 @@ from django.contrib.auth.models import Permission
 import pdb
 
 class Groups(Base):
-    permission_classes = [Group_Permissions]
+    permission_classes = [GroupsPermissionPermission]
 
     def get(self,request):
-        pdb.set_trace()
         enterprise_id = self.get_enterprise_id(request.user.id)
         groups = Group.objects.filter(enterprise_id=enterprise_id).all()
 
@@ -59,7 +58,7 @@ class Groups(Base):
         return Response({'sucess':True})
 
 class GroupDetail(Base):
-    permission_classes = [Group_Permissions]
+    permission_classes = [GroupsPermissionPermission]
 
     def get(self,request,group_id):
         enterprise_id = self.get_enterprise_id(request.user.id)
@@ -72,6 +71,7 @@ class GroupDetail(Base):
         return Response({'group':serializer.data})
 
     def put(self,request,group_id):
+        
         enterprise_id = self.get_enterprise_id(request.user.id)
         self.get_group(group_id,enterprise_id)
 
@@ -84,7 +84,6 @@ class GroupDetail(Base):
 
         if permission:
             permission = list(permission.split(','))
-
             try:
                 for item in permission:
                     permission = Permission.objects.filter(id=item).exists()
@@ -94,6 +93,7 @@ class GroupDetail(Base):
                         Group_Permissions.objects.create(permission_id=item,group_id=group_id)
             except:
                 raise APIException("Permissões no padrão incorreto")
+        return Response({'sucess':True})
     
     def delete(self,request,group_id):
         enterprise_id = self.get_enterprise_id(request.user.id)
