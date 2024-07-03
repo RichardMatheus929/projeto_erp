@@ -2,7 +2,6 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from companies.models import Enterprise
 from companies.models import Employee
-from accounts.models import UserGroups,Group_Permissions
 
 class Base(APIView):
     def get_enterprise_user(self,user_id):
@@ -17,6 +16,7 @@ class Base(APIView):
 
         if not employe: raise APIException('Este usuário não existe no banco de dadosd')
 
+        from accounts.models import UserGroups,Group_Permissions
         groups = UserGroups.objects.filter(user_id=user_id).all()
 
         for g in groups:
