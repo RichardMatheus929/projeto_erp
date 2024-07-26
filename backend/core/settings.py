@@ -84,11 +84,12 @@ CORS_ALLOWED_ALL_ORIGINS = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'learn_erp',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'PORT': 3306
+        'USER': 'pgroot',
+        'PASSWORD': 'pg@root',
+        'HOST': 'localhost',
+        'PORT': 5432
     }
 }
 
