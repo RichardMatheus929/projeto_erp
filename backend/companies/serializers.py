@@ -88,7 +88,7 @@ class PermissionsSerializer(serializers.ModelSerializer):
         )
 
 
-class TaskSerializer(serializers.ModelSerializer):
+class TasksSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     class Meta:
@@ -106,7 +106,7 @@ class TaskSerializer(serializers.ModelSerializer):
         return obj.status.name
 
 
-class TaskSerializer:
+class TaskSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
     employee = serializers.SerializerMethodField()
 
@@ -136,7 +136,7 @@ class TaskSerializer:
             'status_id', instance.status_id)
         instance.employee_id = validated_data.get(
             'employee_id', instance.employee_id)
-        instance.due_data = validated_data.get('due_data', instance.due_data)
+        instance.due_date = validated_data.get('due_date', instance.due_date)
 
         instance.save()
         return instance
